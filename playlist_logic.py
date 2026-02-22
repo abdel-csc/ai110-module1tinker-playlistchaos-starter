@@ -69,9 +69,19 @@ def classify_song(song: Song, profile: Dict[str, object]) -> str:
 
     hype_keywords = ["rock", "punk", "party"]
     chill_keywords = ["lofi", "ambient", "sleep"]
+# U - Understand
+# We see that there's an issue with the code snippet below. The AI is classifying genres based off of title alone, despite Genre being an integral part of classification
 
-    is_hype_keyword = any(k in genre for k in hype_keywords)
-    is_chill_keyword = any(k in title for k in chill_keywords)
+# Plan - We would need to implement a way to check for genre/title for keywords. That way the AI can classify and determine what types of songs go where.
+# Psuedo code for this would something like: "is_chill_keyword = any(k in title) or (any k in genre)" we would also do this for the hype keyword to keep it consistent, is_hype_keyword and add (any k in title in hype_keywords) since it already has genre. even though it might not be as necessary for hype songs, it would still be good to have the same logic for both chill and hype songs.
+   # Implementation
+    is_hype_keyword = any(k in genre for k in hype_keywords) or any(
+        k in title for k in hype_keywords)
+    is_chill_keyword = any(k in title for k in chill_keywords) or any(
+        # The issue here was that the AI would just check
+        k in genre for k in chill_keywords)
+    # For just the title, but the genre is also important for determining if something belongs in a chill/hype category. By adding the genre check,
+    #  we can catch more songs that might be considered chill/hype etc based on their genre, even if their title doesn't contain such keywords.
 
     if genre == favorite_genre or energy >= hype_min_energy or is_hype_keyword:
         return "Hype"
@@ -121,7 +131,11 @@ def compute_playlist_stats(playlists: PlaylistMap) -> Dict[str, object]:
 
     avg_energy = 0.0
     if all_songs:
-        total_energy = sum(song.get("energy", 0) for song in hype)
+        # Understand - We see here that the totla energy seems to be only be calculating for just the hype songs? So this is not a accurate assessment.
+        # Plan Let's just make sure this work is inclusive. we need to include all types of types, which is represented below by "all songs" so
+        # in our pseudo we would  change total_energy = sum(song.get("energy", 0) for song in all_songs)
+        # Checking out our implementation below, we can see that it matches!
+        total_energy = sum(song.get("energy", 0) for song in all_songs)
         avg_energy = total_energy / len(all_songs)
 
     top_artist, top_count = most_common_artist(all_songs)
@@ -168,7 +182,10 @@ def search_songs(
 
     for song in songs:
         value = str(song.get(field, "")).lower()
-        if value and value in q:
+      # Understand that we need to understand that this current code:  if value and value in q: is wrong. As it is checking if the song's value is inside the query, when it should be your query is inside checking the value of the song
+      # Plan - We would need to flip the logic of this check. Instead of checking if the song's value is in the query, we should check if the query is in the song's value. This way, if a user searches for "rock" and a song has "rock" in its genre or title, it will be correctly identified as a match.
+      # Our implementation would just be a quick switch: if value and q goes to and value in q, allowing us to get a new result of:
+        if value and q in value:
             filtered.append(song)
 
     return filtered
