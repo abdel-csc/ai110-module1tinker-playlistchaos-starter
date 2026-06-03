@@ -118,6 +118,8 @@ When you finish, Playlist Chaos will feel more predictable, and you will have ta
   - For students in this course, we often encourage the use of AI, but once you start using it, it may be hard to provide one's own input. We want to try and avoid and limit that. A good way we can do that is through the UPI pathway.
   - Reading documentation in the code may be especially difficult for beginners who may feel overwhelmed by the code. This is where AI could be used for a proper breakdown of things.
 - AI was helpful in this assignment with testing out features and classifications and encouraging fixes, but some fixes like asking "is_chill_keyword = any(k in title for k in chill_keywords)" could be applied to the "hype" section as well to maintain consistency. AI in some cases tends to get tunnel vision and only focus on one task at hand. This is why it's important for the user (you) to read around and provide context as you work alongside it.
+- Consequently, students should also be able to understand how to read and understand code syntax without the help of AI. AI is a very useful tool, but as previously mentioned, it can become very easy to rely on very quickly. To encourage students apply a greater role for themselves they should attempt to plan before prompting overall. 
 - A way AI could guide the student is by reinforcing the objective at hand. In this assignment, you are testing the software and then attempting to fix any present bugs you may find. The AI could be used as a way to nudge users in certain areas, testing them and then finding said bugs. AI can only do so many things, so its up to us to fill in those gaps! :)
+  
 
 Overall, this assignment was great for teaching AI fundamentals and bug fixing. 9/10. 
