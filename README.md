@@ -8,7 +8,7 @@ You do not need to understand everything at once. Approach the app as a curious 
 
 ---
 
-## How the code is organized
+## How the code is organized in parts
 
 ### `app.py`  
 
